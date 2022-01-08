@@ -31,5 +31,5 @@ RayTracingInOneWeekend.exe > test.ppm
 - optimizations
 
 ## Requirements
-- .NET core 6.0. The
+- .NET core 6.0. 
 - the code has been tested in Visual Studio 2022
