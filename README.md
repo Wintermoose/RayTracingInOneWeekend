@@ -5,6 +5,8 @@ https://raytracing.github.io/
 
 The code is written in C#, but tries to stay as close to the original as reasonable (for the time being, at least).
 
+this code represents the end of Book 1.
+
 ## Choosing a scene
 
 The main entry, Program.cs, contains a block with code like this 
