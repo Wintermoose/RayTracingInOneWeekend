@@ -42,6 +42,23 @@ internal class HittableList : IHittable
         return temp;
     }
 
+    public Aabb? GetAabb(double time0, double time1)
+    {
+        if (_list.Count == 0) return null;
+
+        Aabb? result = null;
+        foreach( var obj in _list)
+        {
+            var box = obj.GetAabb(time0, time1);
+            if (box == null) continue; // the book has "return null" which sounds wrong?
+            result = result == null ? box : Aabb.SurroundingBox(result, box);
+        }
+
+        return result;
+    }
+
+    public BvhNode AsBvh(double time0, double time1) => new BvhNode(_list, time0, time1);
+
     private List<IHittable> _list = new();
 }
 

@@ -66,7 +66,7 @@ internal class MetalGlassScene : IScene
         return (aspectRatio, 100, 50);
     }
 
-    public IHittable GetWorld()
+    public HittableList GetWorld()
     {
         var world = new HittableList();
         var materialGround = new Lambertian(new Color(0.8, 0.8, 0.0));

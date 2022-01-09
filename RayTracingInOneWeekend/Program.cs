@@ -29,18 +29,20 @@ rayColor = (Ray r, IHittable world, int depth) =>
 //var scene = new RayTracingInOneWeekend.Scenes.RedBlueSphereScene();
 //var scene = new RayTracingInOneWeekend.Scenes.GlossyMetalScene();
 //var scene = new RayTracingInOneWeekend.Scenes.MetalGlassScene(RayTracingInOneWeekend.Scenes.MetalGlassScene.Position.DistantZoom, RayTracingInOneWeekend.Scenes.MetalGlassScene.GlassSphere.Thin);
-var scene = new RayTracingInOneWeekend.Scenes.Book1CoverScene();
+//var scene = new RayTracingInOneWeekend.Scenes.Book1CoverScene();
+var scene = new RayTracingInOneWeekend.Scenes.Book1MovingScene();
 
 var (aspectRatio, samplesPerPixel, maxDepth) = scene.GetPreferredParameters();
 
 // Image
-const int imageWidth = 1920;
-//const int imageWidth = 400;
+//const int imageWidth = 1920;
+const int imageWidth = 400;
 int imageHeight = (int)(imageWidth / aspectRatio);
 
 // World
-var world = scene.GetWorld();
+var worldSrc = scene.GetWorld();
 var cam = scene.GetCamera();
+var world = worldSrc.AsBvh(cam.Time0, cam.Time1);
 
 Console.WriteLine("P3");
 Console.WriteLine($"{imageWidth} {imageHeight}");
@@ -48,6 +50,7 @@ Console.WriteLine("255");
 
 var rnd = new Random();
 
+var start = DateTime.Now;
 for ( int j = imageHeight-1; j >= 0; j-- )
 {
     Console.Error.Write($"\rScanlines remaining {j}   ");
@@ -65,3 +68,5 @@ for ( int j = imageHeight-1; j >= 0; j-- )
         Console.WriteLine(pixel.AsColorString( samplesPerPixel ));
     }
 }
+var end = DateTime.Now;
+Console.Error.WriteLine($"\nRendering done in {(end - start).TotalSeconds} s");

@@ -8,7 +8,7 @@ namespace RayTracingInOneWeekend;
 
 internal interface IScene
 {
-    IHittable GetWorld();
+    HittableList GetWorld();
 
     Camera GetCamera();
 

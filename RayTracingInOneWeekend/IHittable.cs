@@ -27,4 +27,5 @@ record class HitRecord
 interface IHittable
 {
     HitRecord? Hit(in Ray r, double tMin, double tMax);
+    Aabb? GetAabb(double time0, double time1);
 }

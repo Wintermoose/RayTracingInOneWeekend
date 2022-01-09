@@ -38,7 +38,7 @@ internal class Dielectric : IMaterial
             //}
         }
 
-        scattered = new Ray(hit.P, direction);
+        scattered = new Ray(hit.P, direction, rIn.Time);
         return true;
     }
 

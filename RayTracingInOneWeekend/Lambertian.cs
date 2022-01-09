@@ -21,7 +21,7 @@ internal class Lambertian : IMaterial
             scatterDirection = hit.Normal;
         }
 
-        scattered = new Ray(hit.P, scatterDirection);
+        scattered = new Ray(hit.P, scatterDirection, rIn.Time);
         attenuation = Albedo;
         return true;
     }

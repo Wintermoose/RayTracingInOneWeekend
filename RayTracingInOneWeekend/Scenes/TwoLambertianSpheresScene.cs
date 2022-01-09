@@ -22,7 +22,7 @@ internal class TwoLambertianSpheresScene: IScene
         return (aspectRatio, 100, 50);
     }
 
-    public IHittable GetWorld()
+    public HittableList GetWorld()
     {
         var world = new HittableList();
         IMaterial lambertian = new Lambertian(new Color(0.5, 0.5, 0.5));

@@ -17,7 +17,7 @@ internal class Metal : IMaterial
     public bool Scatter(Ray rIn, in HitRecord hit, out Vec3 attenuation, out Ray scattered)
     {
         Vec3 reflected = Vec3.Reflect(rIn.Direction.UnitVector(), hit.Normal);
-        scattered = new Ray(hit.P, reflected + Fuzz * Vec3.RandomInUnitSphere() );
+        scattered = new Ray(hit.P, reflected + Fuzz * Vec3.RandomInUnitSphere(), rIn.Time );
         attenuation = Albedo;
         return Vec3.Dot(scattered.Direction, hit.Normal) > 0;
     }

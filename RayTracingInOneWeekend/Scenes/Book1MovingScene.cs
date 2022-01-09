@@ -5,9 +5,9 @@ using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
 
 namespace RayTracingInOneWeekend.Scenes;
 
-internal class Book1CoverScene : IScene
+internal class Book1MovingScene : IScene
 {
-    readonly double aspectRatio = 3.0 / 2.0;
+    readonly double aspectRatio = 16.0 / 9.0;
     public Camera GetCamera()
     {
         Point3 lookFrom = new(13, 2, 3);
@@ -15,12 +15,12 @@ internal class Book1CoverScene : IScene
         Vec3 vUp = new(0, 1, 0);
         double distToFocus = 10;
         double aperture = 0.1;
-        return new(lookFrom, lookAt, vUp, 20.0, aspectRatio, aperture, distToFocus);
+        return new(lookFrom, lookAt, vUp, 20.0, aspectRatio, aperture, distToFocus, 0.0, 1.0);
     }
 
     public (double aspectRatio, int samplesPerPixel, int maxDepth) GetPreferredParameters()
     {
-        return (aspectRatio, 500, 50);
+        return (aspectRatio, 100, 50);
     }
 
     public HittableList GetWorld()
@@ -45,7 +45,8 @@ internal class Book1CoverScene : IScene
                         // diffuse
                         var albedo = Color.Random() * Color.Random();
                         sphere_material = new Lambertian(albedo);
-                        world.Add(new Sphere(center, 0.2, sphere_material));
+                        var center2 = center + new Vec3(0, 0.5 * Random.Shared.NextDouble(), 0);
+                        world.Add(new MovingSphere(center, center2, 0.0, 1.0, 0.2, sphere_material));
                     }
                     else if (choose_mat < 0.95)
                     {

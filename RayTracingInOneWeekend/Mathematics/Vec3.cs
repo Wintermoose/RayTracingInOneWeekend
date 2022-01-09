@@ -26,15 +26,23 @@ internal readonly struct Vec3
         Z = e2;
     }
 
+    public Vec3(double e)
+    {
+        X = e;
+        Y = e;
+        Z = e;
+    }
+
     public readonly double X;
     public readonly double Y;
     public readonly double Z;
 
-    //public double this[int i]
-    //{
-    //    get => ElementAt(this, i);
-    //    set => ElementAt(this, i) = value;
-    //}
+    public double this[int i]
+    {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        get => ElementAt(this, i);
+        //set => ElementAt(this, i) = value;
+    }
 
     public double Length
     {
@@ -88,6 +96,18 @@ internal readonly struct Vec3
             left.Z * right.X - left.X * right.Z,
             left.X * right.Y - left.Y * right.X
         );
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vec3 Min(in Vec3 left, in Vec3 right) => new Vec3(
+            Math.Min(left.X, right.X),
+            Math.Min(left.Y, right.Y),
+            Math.Min(left.Z, right.Z));
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static Vec3 Max(in Vec3 left, in Vec3 right) => new Vec3(
+            Math.Max(left.X, right.X),
+            Math.Max(left.Y, right.Y),
+            Math.Max(left.Z, right.Z));
 
     public static Vec3 Reflect(in Vec3 vector, in Vec3 normal) => vector - 2 * Dot(vector, normal)  * normal;
 
@@ -154,10 +174,11 @@ internal readonly struct Vec3
         }
     }
 
-    //private static ref double ElementAt(in Vec3 src, nint idx)
-    //{
-    //    return ref Unsafe.Add(ref Unsafe.As<Vec3, double>(ref Unsafe.AsRef(src)), idx);
-    //}
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static ref double ElementAt(in Vec3 src, nint idx)
+    {
+        return ref Unsafe.Add(ref Unsafe.As<Vec3, double>(ref Unsafe.AsRef(src)), idx);
+    }
 
 }
 

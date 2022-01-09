@@ -18,7 +18,8 @@ internal class Sphere : IHittable {
 
     public HitRecord? Hit(in Ray r, double tMin, double tMax)
     {
-        var oc = r.Origin - Center;
+        var center = GetCenter(r.Time);
+        var oc = r.Origin - center;
 
         var a = r.Direction.LengthSquared;
         var halfB = Vec3.Dot(oc, r.Direction);
@@ -43,7 +44,17 @@ internal class Sphere : IHittable {
         }
 
         Vec3 p = r.At(root);
-        Vec3 outwardNormal = (p - Center) / Radius;
+        Vec3 outwardNormal = (p - center) / Radius;
         return new HitRecord(p, outwardNormal, root, Material, r);
+    }
+
+    public virtual Aabb? GetAabb(double time0, double time1) => new Aabb(
+        Center - new Vec3(Radius),
+        Center + new Vec3(Radius)
+    );
+
+    protected virtual Point3 GetCenter(double time)
+    {
+        return Center;
     }
 }

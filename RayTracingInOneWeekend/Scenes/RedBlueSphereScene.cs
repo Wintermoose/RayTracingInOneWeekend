@@ -22,7 +22,7 @@ internal class RedBlueSphereScene : IScene
         return (aspectRatio, 100, 50);
     }
 
-    public IHittable GetWorld()
+    public HittableList GetWorld()
     {
         var world = new HittableList();
         double R = Math.Cos(Math.PI / 4);
