@@ -1,8 +1,10 @@
 ﻿using Vec3 = RayTracingInOneWeekend.Mathematics.Vec3;
 using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
-using Ray = RayTracingInOneWeekend.Mathematics.Ray;
+using Aabb = RayTracingInOneWeekend.Mathematics.Aabb;
 
-namespace RayTracingInOneWeekend;
+using RayTracingInOneWeekend.Materials;
+
+namespace RayTracingInOneWeekend.Entities;
 
 internal class MovingSphere : Sphere
 {

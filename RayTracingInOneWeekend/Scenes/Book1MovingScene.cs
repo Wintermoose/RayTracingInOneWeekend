@@ -3,11 +3,21 @@ using Vec3 = RayTracingInOneWeekend.Mathematics.Vec3;
 using Color = RayTracingInOneWeekend.Mathematics.Vec3;
 using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
 
+using RayTracingInOneWeekend.Entities;
+using RayTracingInOneWeekend.Materials;
+using RayTracingInOneWeekend.Textures;
+
 namespace RayTracingInOneWeekend.Scenes;
 
 internal class Book1MovingScene : IScene
 {
     readonly double aspectRatio = 16.0 / 9.0;
+    
+    public Book1MovingScene( bool checkered )
+    {
+        _checkered = checkered;
+    }
+
     public Camera GetCamera()
     {
         Point3 lookFrom = new(13, 2, 3);
@@ -27,7 +37,9 @@ internal class Book1MovingScene : IScene
     {
         var world = new HittableList();
 
-        var groundMaterial = new Lambertian(new Color(0.5, 0.5, 0.5));
+        var groundMaterial = _checkered ? 
+            new Lambertian( new CheckerTexture(new Color(0.2, 0.3, 0.1), new Color(0.9, 0.9, 0.9)) ) : 
+            new Lambertian(new Color(0.5, 0.5, 0.5));
         world.Add(new Sphere(new Point3(0, -1000, 0), 1000, groundMaterial));
         for (int a = -11; a < 11; a++)
         {
@@ -76,6 +88,8 @@ internal class Book1MovingScene : IScene
         world.Add(new Sphere(new Point3(4, 1, 0), 1.0, material3));
         return world;
     }
+
+    private readonly bool _checkered;
 
 }
 

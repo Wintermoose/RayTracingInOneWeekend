@@ -3,6 +3,8 @@ using RayTracingInOneWeekend.Mathematics;
 using Color = RayTracingInOneWeekend.Mathematics.Vec3;
 using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
 
+using RayTracingInOneWeekend.Entities;
+
 Func<Ray, IHittable, int, Color>? rayColor = null;
 
 rayColor = (Ray r, IHittable world, int depth) =>
@@ -30,7 +32,8 @@ rayColor = (Ray r, IHittable world, int depth) =>
 //var scene = new RayTracingInOneWeekend.Scenes.GlossyMetalScene();
 //var scene = new RayTracingInOneWeekend.Scenes.MetalGlassScene(RayTracingInOneWeekend.Scenes.MetalGlassScene.Position.DistantZoom, RayTracingInOneWeekend.Scenes.MetalGlassScene.GlassSphere.Thin);
 //var scene = new RayTracingInOneWeekend.Scenes.Book1CoverScene();
-var scene = new RayTracingInOneWeekend.Scenes.Book1MovingScene();
+var scene = new RayTracingInOneWeekend.Scenes.Book1MovingScene(true);
+//var scene = new RayTracingInOneWeekend.Scenes.TwoCheckeredSpheresScene();
 
 var (aspectRatio, samplesPerPixel, maxDepth) = scene.GetPreferredParameters();
 

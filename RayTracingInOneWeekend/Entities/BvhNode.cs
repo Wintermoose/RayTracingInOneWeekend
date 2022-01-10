@@ -1,7 +1,8 @@
 ﻿using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
 using Ray = RayTracingInOneWeekend.Mathematics.Ray;
+using Aabb = RayTracingInOneWeekend.Mathematics.Aabb;
 
-namespace RayTracingInOneWeekend;
+namespace RayTracingInOneWeekend.Entities;
 
 internal class BvhNode : IHittable
 {
@@ -11,7 +12,7 @@ internal class BvhNode : IHittable
         
     }
 
-    public BvhNode( Span<IHittable> src, Span<Aabb?> abbs, double time0, double time1 )
+    public BvhNode( Span<IHittable> src, Span<Aabb?> aabbs, double time0, double time1 )
     {
         int axis = System.Random.Shared.Next(0, 3);
 
@@ -25,39 +26,47 @@ internal class BvhNode : IHittable
         };
 
         int count = src.Length;
+        Aabb? leftBox;
+        Aabb? rightBox;
 
         if (count == 1)
         {
             _left = _right = src[0];
+            leftBox = rightBox = aabbs[0];
         }
         else if (count == 2)
         {
-            if (comparer(abbs[0], abbs[1]) <= 0 )
+            if (comparer(aabbs[0], aabbs[1]) <= 0 )
             {
                 _left = src[0];
                 _right = src[1];
+                leftBox = aabbs[0];
+                rightBox = aabbs[1];
             } else
             {
                 _left = src[1];
                 _right = src[0];
+                leftBox = aabbs[1];
+                rightBox = aabbs[0];
             }
         }
         else
         {
-            abbs.Sort(src, comparer.Invoke);
+            aabbs.Sort(src, comparer.Invoke);
             var mid = count / 2;
             if ( mid == 1 )
             {
                 _left = src[0];
+                leftBox = aabbs[0];
             } else
             {
-                _left = new BvhNode(src.Slice(0, mid), abbs.Slice(0, mid), time0, time1);
+                _left = new BvhNode(src.Slice(0, mid), aabbs.Slice(0, mid), time0, time1);
+                leftBox = _left.GetAabb(time0, time1);
             }
-            _right = new BvhNode(src.Slice(mid), abbs.Slice(mid), time0, time1);
+            _right = new BvhNode(src.Slice(mid), aabbs.Slice(mid), time0, time1);
+            rightBox = _right.GetAabb(time0, time1);
         }
 
-        var leftBox = _left.GetAabb(time0, time1);
-        var rightBox = _right.GetAabb(time0, time1);
         if (leftBox == null || rightBox == null) throw new Exception("Bounding box not found");
 
         _box = Aabb.SurroundingBox(leftBox, rightBox);

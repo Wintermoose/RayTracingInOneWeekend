@@ -1,7 +1,6 @@
 ﻿using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
-using Ray = RayTracingInOneWeekend.Mathematics.Ray;
 
-namespace RayTracingInOneWeekend;
+namespace RayTracingInOneWeekend.Mathematics;
 internal class Aabb
 {
     public Point3 Min { get; init; }

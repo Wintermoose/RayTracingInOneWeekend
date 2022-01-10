@@ -1,11 +1,6 @@
 ﻿using RayTracingInOneWeekend.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace RayTracingInOneWeekend;
+namespace RayTracingInOneWeekend.Entities;
 
 internal class HittableList : IHittable
 {

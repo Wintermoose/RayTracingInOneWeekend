@@ -1,8 +1,10 @@
 ﻿using Vec3 = RayTracingInOneWeekend.Mathematics.Vec3;
 using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
 using Ray = RayTracingInOneWeekend.Mathematics.Ray;
+using Aabb = RayTracingInOneWeekend.Mathematics.Aabb;
 
-namespace RayTracingInOneWeekend;
+using RayTracingInOneWeekend.Materials;
+namespace RayTracingInOneWeekend.Entities;
 
 internal class Sphere : IHittable { 
     public Point3 Center { get; init; }
@@ -45,7 +47,8 @@ internal class Sphere : IHittable {
 
         Vec3 p = r.At(root);
         Vec3 outwardNormal = (p - center) / Radius;
-        return new HitRecord(p, outwardNormal, root, Material, r);
+        var (u, v) = GetSphereUv(outwardNormal);
+        return new HitRecord(p, outwardNormal, root, Material, r, u, v);
     }
 
     public virtual Aabb? GetAabb(double time0, double time1) => new Aabb(
@@ -57,4 +60,20 @@ internal class Sphere : IHittable {
     {
         return Center;
     }
+
+    static (double u, double v) GetSphereUv(in Point3 p)
+    {
+        // p: a given point on the sphere of radius one, centered at the origin.
+        // u: returned value [0,1] of angle around the Y axis from X=-1.
+        // v: returned value [0,1] of angle from Y=-1 to Y=+1.
+        //     <1 0 0> yields <0.50 0.50>       <-1  0  0> yields <0.00 0.50>
+        //     <0 1 0> yields <0.50 1.00>       < 0 -1  0> yields <0.50 0.00>
+        //     <0 0 1> yields <0.25 0.50>       < 0  0 -1> yields <0.75 0.50>
+
+        double theta = Math.Acos(-p.Y);
+        double phi = Math.Atan2(-p.Z, p.X) + Math.PI;
+
+        return (u: phi / (2 * Math.PI), v: theta / Math.PI);
+    }
+            
 }

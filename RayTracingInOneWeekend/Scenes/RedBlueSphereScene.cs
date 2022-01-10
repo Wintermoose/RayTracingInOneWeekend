@@ -1,7 +1,10 @@
-﻿using RayTracingInOneWeekend;
-using Vec3 = RayTracingInOneWeekend.Mathematics.Vec3;
+﻿using Vec3 = RayTracingInOneWeekend.Mathematics.Vec3;
 using Color = RayTracingInOneWeekend.Mathematics.Vec3;
 using Point3 = RayTracingInOneWeekend.Mathematics.Vec3;
+
+using RayTracingInOneWeekend.Entities;
+using RayTracingInOneWeekend.Materials;
+
 
 namespace RayTracingInOneWeekend.Scenes;
 internal class RedBlueSphereScene : IScene

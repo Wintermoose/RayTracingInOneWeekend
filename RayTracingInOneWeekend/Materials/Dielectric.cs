@@ -1,8 +1,9 @@
-﻿namespace RayTracingInOneWeekend;
+﻿using Ray = RayTracingInOneWeekend.Mathematics.Ray;
+using Vec3 = RayTracingInOneWeekend.Mathematics.Vec3;
+using Color = RayTracingInOneWeekend.Mathematics.Vec3;
+using RayTracingInOneWeekend.Entities;
 
-using Ray = Mathematics.Ray;
-using Vec3 = Mathematics.Vec3;
-using Color = Mathematics.Vec3;
+namespace RayTracingInOneWeekend.Materials;
 
 internal class Dielectric : IMaterial
 {
