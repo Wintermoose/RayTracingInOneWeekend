@@ -5,6 +5,12 @@ namespace RayTracingInOneWeekend.Mathematics;
 // Yeah I suppose we could just use Vector3 from Numerics, but a) doubles b) let's keep the code as close to the book as reasonable
 internal readonly struct Vec3
 {
+    static public readonly Vec3 Zero = new Vec3();
+    static public readonly Vec3 One = new Vec3(1);
+    static public readonly Vec3 UnitX = new Vec3(1, 0, 0);
+    static public readonly Vec3 UnitY = new Vec3(0, 1, 0);
+    static public readonly Vec3 UnitZ = new Vec3(0, 0, 1);
+
     public Vec3()
     {
         X = 0;

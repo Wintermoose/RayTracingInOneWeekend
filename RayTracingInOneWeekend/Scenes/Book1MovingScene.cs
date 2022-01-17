@@ -33,6 +33,13 @@ internal class Book1MovingScene : IScene
         return (aspectRatio, 100, 50);
     }
 
+    public Color GetBackground()
+    {
+        // use sky
+        return new Color(-1, 0, 0);
+    }
+
+
     public HittableList GetWorld()
     {
         var world = new HittableList();
