@@ -56,7 +56,9 @@ Color RayColor(Ray r, in Color background, IHittable world, int depth)
 //var scene = new RayTracingInOneWeekend.Scenes.TwoPerlinSphereScene(RayTracingInOneWeekend.Textures.NoiseTexture.Variant.Turbulence);
 //var scene = new RayTracingInOneWeekend.Scenes.EarthScene();
 //var scene = new RayTracingInOneWeekend.Scenes.SimpleLightScene(true);
-var scene = new RayTracingInOneWeekend.Scenes.CornellBoxScene(false);
+//var scene = new RayTracingInOneWeekend.Scenes.CornellBoxScene(false);
+//var scene = new RayTracingInOneWeekend.Scenes.CornellSmokeScene(false);
+var scene = new RayTracingInOneWeekend.Scenes.Book2CoverScene();
 
 var (aspectRatio, samplesPerPixel, maxDepth) = scene.GetPreferredParameters();
 
